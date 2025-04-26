@@ -1,0 +1,54 @@
+# Git
+.git
+.github
+.gitignore
+.gitattributes
+.gitlab-ci.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+
+# Docker
+.docker/
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Environment variables
+.env*
+!.env.example
+
+# Development files
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Static & media in development
+/static/
+/media/
+
+# Dependencies
+node_modules/
+
+# Documentation
+docs/
+*.md
+!README.md 
