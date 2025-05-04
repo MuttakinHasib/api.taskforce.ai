@@ -1,4 +1,4 @@
-.PHONY: help dev prod down migrate superuser shell logs clean test static build-dev build-prod restart
+.PHONY: help dev prod down migrate superuser shell logs clean test static build-dev build-prod restart db
 
 # Variables
 DEV_COMPOSE = docker compose -f docker-compose.dev.yml
@@ -48,6 +48,9 @@ shell: ## Access Django shell
 
 dbshell: ## Access database shell
 	$(DEV_COMPOSE) exec db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
+
+db: ## Start only the database container
+	$(DEV_COMPOSE) up -d db
 
 logs: ## View development logs
 	$(DEV_COMPOSE) logs -f
