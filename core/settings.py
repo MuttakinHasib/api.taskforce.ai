@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'apps.users',
+    'apps.teams',
 ]
 
 MIDDLEWARE = [
@@ -137,4 +138,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User Model
-AUTH_USER_MODEL = 'users.UserAccount'
+AUTH_USER_MODEL = 'users.User'
