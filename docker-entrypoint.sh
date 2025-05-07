@@ -58,7 +58,7 @@ elif [ "$1" = "gunicorn" ]; then
     # Formula: (2 × CPU cores) + 1
     # For example, on a 2-core server, 5 workers would be optimal
     # Adjust based on your production server's resources
-    exec gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers $(( 2 * $(nproc) + 1 ))
+    exec gunicorn core.asgi:application --bind 0.0.0.0:8000 --workers $(( 2 * $(nproc) + 1 ))
 else
     exec "$@"
 fi 

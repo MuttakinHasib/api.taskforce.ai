@@ -14,3 +14,4 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "User Account"
         verbose_name_plural = "User Accounts"
+
