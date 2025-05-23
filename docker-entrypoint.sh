@@ -39,26 +39,54 @@ python manage.py migrate
 # Create superuser if needed (in development)
 if [ -n "${DJANGO_SUPERUSER_USERNAME:-}" ] && [ -n "${DJANGO_SUPERUSER_EMAIL:-}" ] && [ -n "${DJANGO_SUPERUSER_PASSWORD:-}" ]; then
     echo "👤 Creating/updating superuser..."
-    python manage.py createsuperuser --noinput || true
+    echo "Debug: DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME:-'not set'}"
+    echo "Debug: DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-'not set'}"
+    
+    # Check if superuser already exists
+    python manage.py shell -c "
+from django.contrib.auth import get_user_model
+User = get_user_model()
+username = '${DJANGO_SUPERUSER_USERNAME}'
+if User.objects.filter(username=username).exists():
+    print(f'Superuser {username} already exists')
+else:
+    try:
+        User.objects.create_superuser(
+            username='${DJANGO_SUPERUSER_USERNAME}',
+            email='${DJANGO_SUPERUSER_EMAIL}',
+            password='${DJANGO_SUPERUSER_PASSWORD}'
+        )
+        print(f'Superuser {username} created successfully')
+    except Exception as e:
+        print(f'Error creating superuser: {e}')
+        exit(1)
+" || echo "Failed to create superuser, continuing..."
 fi
 
+# Get the first argument (default to empty string if not provided)
+COMMAND="${1:-}"
+
 # Collect static files in production
-if [ "$1" = "gunicorn" ]; then
+if [ "$COMMAND" = "gunicorn" ]; then
     echo "📦 Collecting static files..."
     python manage.py collectstatic --noinput
 fi
 
 # Start server
 echo "🌐 Starting server..."
-if [ "$1" = "runserver" ]; then
+if [ "$COMMAND" = "runserver" ]; then
     exec python manage.py runserver 0.0.0.0:8000
-elif [ "$1" = "gunicorn" ]; then
+elif [ "$COMMAND" = "gunicorn" ]; then
     # Workers are separate processes that handle incoming requests in parallel
     # The optimal number of workers depends on your server's CPU cores
     # Formula: (2 × CPU cores) + 1
     # For example, on a 2-core server, 5 workers would be optimal
     # Adjust based on your production server's resources
     exec gunicorn core.asgi:application --bind 0.0.0.0:8000 --workers $(( 2 * $(nproc) + 1 ))
-else
+elif [ -n "$COMMAND" ]; then
     exec "$@"
+else
+    echo "No command specified. Available commands: runserver, gunicorn"
+    echo "Starting development server by default..."
+    exec python manage.py runserver 0.0.0.0:8000
 fi 
