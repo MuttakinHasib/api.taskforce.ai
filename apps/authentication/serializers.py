@@ -55,23 +55,6 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError('Must include "email" and "password".')
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            "id",
-            "email",
-            "username",
-            "first_name",
-            "last_name",
-            "avatar",
-            "phone",
-            "date_joined",
-            "last_login",
-        ]
-        read_only_fields = ["id", "username", "date_joined", "last_login"]
-
-
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
@@ -92,4 +75,11 @@ class TokenSerializer(serializers.Serializer):
 
     access = serializers.CharField()
     refresh = serializers.CharField()
-    user = UserProfileSerializer(read_only=True)
+
+    def to_representation(self, instance):
+        from apps.users.serializers import UserProfileSerializer
+
+        data = super().to_representation(instance)
+        if hasattr(instance, "user"):
+            data["user"] = UserProfileSerializer(instance.user).data
+        return data
