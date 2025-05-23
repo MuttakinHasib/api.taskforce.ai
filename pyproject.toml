@@ -14,12 +14,9 @@ dependencies = [
     "markdown>=3.8",
     "psycopg2-binary>=2.9.10",
     "python-decouple>=3.8",
+    "rest-framework-simplejwt>=0.0.2",
     "whitenoise>=6.9.0",
 ]
 
 [tool.uv]
-dev-dependencies = [
-    "black>=24.1.0",
-    "isort>=5.13.0",
-    "ruff>=0.3.0",
-]
+dev-dependencies = ["black>=24.1.0", "isort>=5.13.0", "ruff>=0.3.0"]

@@ -1,17 +1,18 @@
-FROM python:3.12-slim
+FROM python:3.13-slim-bullseye
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    DJANGO_SETTINGS_MODULE=core.settings
+    DJANGO_SETTINGS_MODULE=core.settings \
+    DEBIAN_FRONTEND=noninteractive
 
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies with specific version pinning to avoid conflicts
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    apt-get update -o Acquire::Check-Valid-Until=false && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev

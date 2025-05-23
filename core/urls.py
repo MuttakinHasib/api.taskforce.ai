@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path
+from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework.permissions import AllowAny
@@ -34,6 +34,10 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(AllowAny,),
+    patterns=[
+        path("api/", include("api.urls")),
+    ],
+    url=getattr(settings, "FORCE_SCRIPT_NAME", "") or None,
 )
 
 
@@ -43,6 +47,7 @@ def health_check(request):
 
 
 urlpatterns = [
+    path("api/", include("api.urls")),
     path("admin/", admin.site.urls),
     path("health/", health_check, name="health_check"),
     path(

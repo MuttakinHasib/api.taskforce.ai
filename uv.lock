@@ -291,6 +291,15 @@ wheels = [
 ]
 
 [[package]]
+name = "rest-framework-simplejwt"
+version = "0.0.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/82/b33aeec7825b6c97dececb80234dacf458ee337727c5c00d4592182913b1/rest_framework_simplejwt-0.0.2.tar.gz", hash = "sha256:035187ce5380e18e8b966610a89b6460fb4b73cd179979343888fb190328125d", size = 2176 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/28/de/60ad25b09eb586d8b63b5246cce264b10055a4e09e4bb5aca9e9ec374807/rest_framework_simplejwt-0.0.2-py3-none-any.whl", hash = "sha256:620c56826ff4791c4aaa730ec52aed1f4c74b9c20ea15b9fc1a39bdf99a29a30", size = 2832 },
+]
+
+[[package]]
 name = "ruff"
 version = "0.11.7"
 source = { registry = "https://pypi.org/simple" }
@@ -338,6 +347,7 @@ dependencies = [
     { name = "markdown" },
     { name = "psycopg2-binary" },
     { name = "python-decouple" },
+    { name = "rest-framework-simplejwt" },
     { name = "whitenoise" },
 ]
 
@@ -359,6 +369,7 @@ requires-dist = [
     { name = "markdown", specifier = ">=3.8" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "python-decouple", specifier = ">=3.8" },
+    { name = "rest-framework-simplejwt", specifier = ">=0.0.2" },
     { name = "whitenoise", specifier = ">=6.9.0" },
 ]
 
