@@ -34,10 +34,6 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(AllowAny,),
-    patterns=[
-        path("api/", include("api.urls")),
-    ],
-    url=getattr(settings, "FORCE_SCRIPT_NAME", "") or None,
 )
 
 
