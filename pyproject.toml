@@ -13,7 +13,6 @@ dependencies = [
     "gunicorn>=23.0.0",
     "markdown>=3.8",
     "psycopg2-binary>=2.9.10",
-    "python-decouple>=3.8",
     "rest-framework-simplejwt>=0.0.2",
     "whitenoise>=6.9.0",
 ]

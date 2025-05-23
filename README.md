@@ -25,6 +25,7 @@ make help
 The application is containerized using Docker with two different configurations:
 
 ### Development Environment
+
 ```
 ┌─────────────────┐     ┌─────────────────┐
 │                 │     │                 │
@@ -44,6 +45,7 @@ The application is containerized using Docker with two different configurations:
 ```
 
 ### Production Environment
+
 ```
 ┌─────────────────┐     ┌─────────────────┐
 │                 │     │                 │
@@ -108,7 +110,7 @@ The application is containerized using Docker with two different configurations:
 ### Working with Docker via Make
 
 - Run Django management commands:
-  
+
   ```bash
   make migrate         # Run migrations
   make makemigrations  # Create migrations
@@ -117,20 +119,20 @@ The application is containerized using Docker with two different configurations:
   ```
 
 - Access the PostgreSQL database:
-  
+
   ```bash
   make dbshell
   ```
 
 - View logs:
-  
+
   ```bash
   make logs      # Development logs
   make logs-prod # Production logs
   ```
 
 - Check container status:
-  
+
   ```bash
   make status      # Development status
   make status-prod # Production status
