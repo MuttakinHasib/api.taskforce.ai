@@ -9,6 +9,34 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TeamCreateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for creating teams. Name is required, owner will be set automatically.
+    """
+    
+    class Meta:
+        model = Team
+        fields = ["name"]  # Only name is required from request
+        
+    def create(self, validated_data):
+        # Owner will be set in the view from request.user
+        return Team.objects.create(**validated_data)
+
+
+class TeamUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating teams. All fields are optional.
+    """
+    
+    class Meta:
+        model = Team
+        fields = ["name", "owner"]
+        extra_kwargs = {
+            'name': {'required': False},
+            'owner': {'required': False}
+        }
+
+
 class TeamListSerializer(serializers.Serializer):
     """
     Serializer for documenting paginated team responses in Swagger.
